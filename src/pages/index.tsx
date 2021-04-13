@@ -10,31 +10,31 @@ type SignInFormData = {
   password: string;
 };
 
-// const signInFormSchema = yup.object().shape({
-//   email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
-//   password: yup.string().required('Senha obrigaória'),
-// });
-
 const signInFormSchema = yup.object().shape({
-  email: yup.string().required(),
-  password: yup.string().required(),
+  email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
+  password: yup.string().required('Senha obrigaória'),
 });
 
+// const signInFormSchema = yup.object().shape({
+//   email: yup.string().required(),
+//   password: yup.string().required(),
+// });
+
 export default function SignIn() {
-  const {
-    register,
-    handleSubmit,
-    formState,
-    formState: { errors },
-  } = useForm();
   // const {
   //   register,
   //   handleSubmit,
   //   formState,
   //   formState: { errors },
-  // } = useForm<SignInFormData>({
-  //   resolver: yupResolver(signInFormSchema),
-  // });
+  // } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState,
+    formState: { errors },
+  } = useForm<SignInFormData>({
+    resolver: yupResolver(signInFormSchema),
+  });
 
   // function handleSignIn(data: SignInFormData) {
   const handleSignIn: SubmitHandler<SignInFormData> = async (data) => {
