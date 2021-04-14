@@ -61,8 +61,8 @@ export default function SignIn() {
             label="E-mail"
             error={errors.email}
             // ref={register}
-            // {...register('email')}
-            {...register('email', { required: 'E-mail obrigatório' })}
+            {...register('email')}
+            // {...register('email', { required: 'E-mail obrigatório' })}
           />
           <Input
             type="password"
@@ -70,7 +70,8 @@ export default function SignIn() {
             label="Senha"
             error={errors.password}
             // ref={register}
-            {...register('password', { required: 'Senha obrigatória' })}
+            {...register('password')}
+            // {...register('password', { required: 'Senha obrigatória' })}
           />
         </Stack>
         <Button
