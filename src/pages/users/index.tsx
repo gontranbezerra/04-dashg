@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -18,12 +18,13 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
 
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Pagination from '../../components/Pagination';
-import { api } from '../../services/api';
+// import { api } from '../../services/api';
+import { useUsers } from '../../services/hooks/useUsers';
 
 type User = {
   id: string;
@@ -41,28 +42,30 @@ export default function UsersList() {
 
   // console.log('UsersList.query: ', query);
 
-  const { data, isLoading, isFetching, error } = useQuery('users', async () => {
-    // const response = await fetch('http://localhost:3000/api/users');
-    // const data = await response.json();
+  // const { data, isLoading, isFetching, error } = useQuery('users', async () => {
+  //   // const response = await fetch('http://localhost:3000/api/users');
+  //   // const data = await response.json();
     
-    const { data } = await api.get('users');
+  //   const { data } = await api.get('users');
     
-    const users = data.users.map((user: User) => {
-      return {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric'
-        }),
-      };
-    })
-    return users;
-  }, {
-    staleTime: 1000 * 5, // 5 seconds
-  });
+  //   const users = data.users.map((user: User) => {
+  //     return {
+  //       id: user.id,
+  //       name: user.name,
+  //       email: user.email,
+  //       createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
+  //         day: '2-digit',
+  //         month: 'long',
+  //         year: 'numeric'
+  //       }),
+  //     };
+  //   })
+  //   return users;
+  // }, {
+  //   staleTime: 1000 * 5, // 5 seconds
+  // });
+
+  const { data, isLoading, isFetching, error } = useUsers();
 
   const isWideVersion = useBreakpointValue({
     base: false,
