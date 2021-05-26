@@ -47,8 +47,9 @@ export function makeServer() {
           { users }
         )
       });
+      this.get('users/:id');
       this.post('users');
-
+      
       this.namespace = ''; // para resetar o namespace e não chocar com o api interna do Next.
       this.passthrough(); // caso a rota não tenha sido definida o miraje passa adiante pro Next.
     },
