@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -45,9 +45,9 @@ export default function UsersList() {
   // const { data, isLoading, isFetching, error } = useQuery('users', async () => {
   //   // const response = await fetch('http://localhost:3000/api/users');
   //   // const data = await response.json();
-    
+
   //   const { data } = await api.get('users');
-    
+
   //   const users = data.users.map((user: User) => {
   //     return {
   //       id: user.id,
@@ -65,7 +65,8 @@ export default function UsersList() {
   //   staleTime: 1000 * 5, // 5 seconds
   // });
 
-  const { data, isLoading, isFetching, error } = useUsers();
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching, error } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -89,7 +90,9 @@ export default function UsersList() {
           <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
               Usuários
-              { !isLoading && isFetching && <Spinner sizer='sm' color='gray.500' ml='4' /> }
+              {!isLoading && isFetching && (
+                <Spinner sizer="sm" color="gray.500" ml="4" />
+              )}
             </Heading>
             <Link href="/users/create" passHref>
               <Button
@@ -126,7 +129,7 @@ export default function UsersList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user: User) => (
+                  {data.users.map((user: User) => (
                     <Tr key={user.id}>
                       <Td px={['4', '4', '6']}>
                         <Checkbox colorScheme="pink" />
@@ -157,9 +160,10 @@ export default function UsersList() {
                   ))}
                 </Tbody>
               </Table>
-              <Pagination totalCountOfRegisters={100} 
-              currentPage={5}
-              onPageChange={() => {}}
+              <Pagination
+                totalCountOfRegisters={data.totalCount}
+                currentPage={page}
+                onPageChange={setPage}
               />
             </>
           )}
